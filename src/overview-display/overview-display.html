@@ -1,0 +1,238 @@
+<mat-toolbar>
+  <mat-toolbar-row class="toolbar">
+    <div class="left-buttons">
+      <span class="brand">RainGauge</span>
+    </div>
+    <span class="spacer"></span>
+    <button mat-button>Rain Harvesting</button>
+    <button mat-button>Ground Replenishment</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="maindiv">
+  <mat-grid-list cols="4" rowHeight="3:1" gutterSize="20px">
+
+    <!-- Harvest Potential -->
+    <mat-grid-tile>
+      <div class="container">
+        <div class="yearlyProj">
+          <div class="label">Harvest Potential</div>
+          <div class="value">{{ yeary() }} L</div>
+          <div class="subtext">Per year</div>
+        </div>
+      </div>
+    </mat-grid-tile>
+
+    <!-- Savings -->
+    <mat-grid-tile>
+      <div class="container">
+        <div class="yearlyProj">
+          <div class="label">Savings</div>
+          <div class="value">₹{{ savings() }}</div>
+          <div class="subtext">Per year</div>
+        </div>
+      </div>
+    </mat-grid-tile>
+
+    <!-- ROI -->
+    <mat-grid-tile>
+      <div class="container">
+        <div class="yearlyProj">
+          <div class="label">ROI</div>
+          <div class="value">{{ ROI() }}%</div>
+          <div class="subtext">Annual return</div>
+        </div>
+      </div>
+    </mat-grid-tile>
+
+    <!-- Payback Period -->
+    <mat-grid-tile>
+      <div class="container">
+        <div class="yearlyProj">
+          <div class="label">Payback Period</div>
+          <div class="value">{{ PaybackPeriod() }}</div>
+          <div class="subtext">Years</div>
+        </div>
+      </div>
+    </mat-grid-tile>
+
+    <!-- 16-Day Forecast Chart -->
+    <mat-grid-tile colspan="2" rowspan="2.5">
+      <div class="container">
+        <div class="yearlyProj">
+          <div class="label">16 Day Forecast</div>
+        </div>
+        <canvas id="acquisitions" width="400" height="200"></canvas>
+      </div>
+    </mat-grid-tile>
+
+    <!-- rtrwh button -->
+    <mat-grid-tile colspan="1" rowspan="2.5">
+      <div class="container">
+        <button matIconButton class="goButton">
+          <mat-icon style="background-color: transparent">call_made</mat-icon>
+        </button>
+        <div class="aryearlyProj">
+          <div class="label">Rain Water Harvesting System</div>
+          <div class="arstuff">
+            <div class="arlabel">Cost: ₹{{this.rainCost()?.toFixed(2)}}</div>
+
+          </div>
+        </div>
+        <div class="arCont" #rtr></div>
+      </div>
+    </mat-grid-tile>
+
+    <!-- ar button -->
+    <mat-grid-tile colspan="1" rowspan="2.5">
+      <div class="arcontainer">
+        <button matIconButton class="goButton">
+          <mat-icon style="background-color: transparent">call_made</mat-icon>
+        </button>
+        <div class="aryearlyProj">
+          <div class="label">Artificial Ground Replenisment System</div>
+          <div class="arstuff">
+            <div class="arlabel">Cost: ₹{{this.arReco()?.estimatedCostINR}}</div>
+            <div class="arlabel">Type: {{this.arReco()?.systemType}}</div>
+            <div class="arlabel">Water Handled: {{this.arReco()?.totalWaterHandledL}}L</div>
+            <div class="arlabel">Filter Type: {{(this.arReco()?.filterType)}}</div>
+          </div>
+        </div>
+        <div class="arCont" #arcontainer></div>
+      </div>
+    </mat-grid-tile>
+
+    <!-- Saving Pie -->
+    <mat-grid-tile colspan="1" rowspan="2.5">
+      <div class="container">
+        <div class="yearlyProj">
+          <div class="label">Utilisation Vs. Harvested</div>
+        </div>
+        <canvas id="waterDonut" width="400" height="200"></canvas>
+      </div>
+    </mat-grid-tile>
+
+    <!-- Env Impact Grid -->
+    <mat-grid-tile colspan="1" rowspan="2.5">
+      <div class="container">
+        <div class="yearlyProj">
+          <div class="label">Env Impact</div>
+        </div>
+        <div class="env-impact-grid">
+          <div class="env-tile">
+            <div class="label">Water Saved</div>
+            <div class="value">{{ formatEnvNumber(env()!.WaterSaved) }} L</div>
+          </div>
+          <div class="env-tile">
+            <div class="label">Groundwater Saved</div>
+            <div class="value">{{ formatEnvNumber(env()!.GroundwaterSaved) }} L</div>
+          </div>
+          <div class="env-tile">
+            <div class="label">Energy Saved</div>
+            <div class="value">{{ formatEnvNumber(env()!.EnergySaved) }} kWh</div>
+          </div>
+          <div class="env-tile">
+            <div class="label">CO₂ Avoided</div>
+            <div class="value">{{ formatEnvNumber(env()!.CO2Avoided) }} kg</div>
+          </div>
+        </div>
+      </div>
+    </mat-grid-tile>
+
+    <!-- Groundwater and Quifer -->
+    <mat-grid-tile colspan="2" rowspan="2.5">
+      <div class="container">
+        <!--        <button matIconButton class="goButton">-->
+        <!--          <mat-icon style="background-color: transparent">call_made</mat-icon>-->
+        <!--        </button>-->
+        <div class="yearlyProj">
+          <div class="label">Ground Water Aquifer</div>
+        </div>
+        <div class="aqi">
+          <canvas id="groundwaterChart"></canvas>
+          <<div class="aqitext">
+          <p class="topa">Aquifer Info:</p>
+
+          @if(this.groundwater())
+          {
+            <p class="pp">Aquifer:  {{this.groundwater()?.aquifers![0].name}}</p>
+            <p class="pp">Type: {{this.groundwater()?.aquifers![0].type}}</p>
+            <p class="pp">{{this.groundwater()?.aquifers![0].description}}</p>
+          }
+        </div>
+        </div>
+      </div>
+    </mat-grid-tile>
+
+    <!-- Monthly Chart -->
+    <mat-grid-tile colspan="3" rowspan="2.5">
+      <div class="container">
+        <div class="yearlyProj">
+          <div class="label">Monthly</div>
+        </div>
+        <canvas id="monthlybar" width="400" height="200"></canvas>
+      </div>
+    </mat-grid-tile>
+
+    <!-- Leader board -->
+    <mat-grid-tile colspan="1" rowspan="2.5">
+      <div class="container">
+        <button matIconButton class="goButton">
+          <mat-icon style="background-color: transparent">call_made</mat-icon>
+        </button>
+        <div class="yearlyProj">
+
+
+          <div class="label">🏆 Leader Board</div>
+
+          <div class="leaderboard">
+            <!-- Row 1 -->
+            <div class="leaderboard-row gold">
+              <span class="pos">1</span>
+              <span class="name">Ravi Sharma</span>
+              <span class="place">Goa</span>
+              <span class="litres">12,500 L</span>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="leaderboard-row silver">
+              <span class="pos">2</span>
+              <span class="name">Ananya Patel</span>
+              <span class="place">Ahmedabad</span>
+              <span class="litres">11,200 L</span>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="leaderboard-row bronze">
+              <span class="pos">3</span>
+              <span class="name">Vikram Singh</span>
+              <span class="place">Delhi</span>
+              <span class="litres">9,800 L</span>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="leaderboard-row">
+              <span class="pos">4</span>
+              <span class="name">Priya Nair</span>
+              <span class="place">Kochi</span>
+              <span class="litres">8,500 L</span>
+            </div>
+
+            <!-- Row 5 -->
+            <div class="leaderboard-row">
+              <span class="pos">5</span>
+              <span class="name">Arjun Reddy</span>
+              <span class="place">Hyderabad</span>
+              <span class="litres">7,600 L</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+</div>
+
+<!-- Chatling Chatbot Container -->
+<div id="chatling-chatbot"></div>

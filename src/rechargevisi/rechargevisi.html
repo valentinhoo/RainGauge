@@ -1,0 +1,63 @@
+@if(recommendation)
+{
+<svg width="100%" height="100%" viewBox="0 0 450 400">
+
+  <!-- Top View -->
+  <text [attr.x]="10" [attr.y]="20" font-size="14" font-weight="bold">Top View</text>
+
+  <!-- Pit Top -->
+  <rect [attr.x]="offsetX" [attr.y]="offsetY"
+        [attr.width]="length*scale" [attr.height]="width*scale"
+        style="fill:lightblue;stroke:blue;stroke-width:2"
+        [hidden]="!recommendation.systemType.includes('Pit')"/>
+  <text [attr.x]="offsetX" [attr.y]="offsetY + width*scale + 15" font-size="12"
+        [hidden]="!recommendation.systemType.includes('Pit')">
+    L: {{length}} m
+  </text>
+  <text [attr.x]="offsetX + length*scale + 5" [attr.y]="offsetY + width*scale/2" font-size="12"
+        [hidden]="!recommendation.systemType.includes('Pit')">
+    W: {{width}} m
+  </text>
+
+  <!-- Barrel / Shaft Top -->
+  <ellipse [attr.cx]="offsetX + diameter*scale/2" [attr.cy]="offsetY + diameter*scale/2"
+           [attr.rx]="diameter*scale/2" [attr.ry]="diameter*scale/2"
+           style="fill:lightgreen;stroke:green;stroke-width:2"
+           [hidden]="!(recommendation.systemType.includes('Barrel') || recommendation.systemType.includes('Shaft'))"/>
+  <text [attr.x]="offsetX + diameter*scale + 5" [attr.y]="offsetY + diameter*scale/2" font-size="12"
+        [hidden]="!(recommendation.systemType.includes('Barrel') || recommendation.systemType.includes('Shaft'))">
+    Ø: {{diameter}} m
+  </text>
+
+  <!-- Side View -->
+  <text [attr.x]="10" [attr.y]="180" font-size="14" font-weight="bold">Side View</text>
+
+  <rect [attr.x]="offsetX" [attr.y]="190" [attr.width]="length*scale" [attr.height]="depth*scale"
+        style="fill:lightblue;stroke:blue;stroke-width:2"
+        [hidden]="!recommendation.systemType.includes('Pit')"/>
+  <text [attr.x]="offsetX + length*scale + 5" [attr.y]="190 + depth*scale/2" font-size="12"
+        [hidden]="!recommendation.systemType.includes('Pit')">
+    Depth: {{depth}} m
+  </text>
+
+  <rect [attr.x]="offsetX" [attr.y]="190" [attr.width]="diameter*scale" [attr.height]="depth*scale"
+        style="fill:lightgreen;stroke:green;stroke-width:2"
+        [hidden]="!(recommendation.systemType.includes('Barrel') || recommendation.systemType.includes('Shaft'))"/>
+  <text [attr.x]="offsetX + diameter*scale + 5" [attr.y]="190 + depth*scale/2" font-size="12"
+        [hidden]="!(recommendation.systemType.includes('Barrel') || recommendation.systemType.includes('Shaft'))">
+    Depth: {{depth}} m
+  </text>
+
+  <!-- Ground Section -->
+  <text [attr.x]="10" [attr.y]="320" font-size="14" font-weight="bold">Ground Section</text>
+  <rect [attr.x]="offsetX" [attr.y]="330" width="350" height="10" style="fill:sienna"/>
+
+  <rect [attr.x]="100" [attr.y]="320 - depth*scale" [attr.width]="length*scale" [attr.height]="depth*scale"
+        style="fill:lightblue;stroke:blue;stroke-width:2"
+        [hidden]="!recommendation.systemType.includes('Pit')"/>
+  <rect [attr.x]="100" [attr.y]="320 - depth*scale" [attr.width]="diameter*scale" [attr.height]="depth*scale"
+        style="fill:lightgreen;stroke:green;stroke-width:2"
+        [hidden]="!(recommendation.systemType.includes('Barrel') || recommendation.systemType.includes('Shaft'))"/>
+
+</svg>
+}

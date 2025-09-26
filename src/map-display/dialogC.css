@@ -1,0 +1,29 @@
+.div{
+  background-color: #000000;
+  color: white;
+  height: 40vh;
+  width: 40vb;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+ }
+.formB
+{
+  display: flex;
+  flex-direction: row;
+}
+.rightpush
+{
+  text-align: right;
+}
+input.rightpush::-webkit-outer-spin-button,
+input.rightpush::-webkit-inner-spin-button {
+  display: none;
+}
+.formA
+{
+  width: 80%;
+}
+
