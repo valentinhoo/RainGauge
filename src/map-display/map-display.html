@@ -13,10 +13,10 @@
   <div class="drawButtons">
     <div class="positionDB">
       <div class="xc">
-        @if(this.a&&this.b){ <h3 class="text">Press Confirm--></h3>}
-        @else{
+<!--        @if(this.a&&this.b){ <h3 class="text">Press Confirm&ndash;&gt;</h3>}-->
+
           <h3 class="text">{{ this.text() }}</h3>
-        }
+
       </div>
       <div>
         @if(this.c)
@@ -26,11 +26,11 @@
         <button matFab class="dbuttons"  matTooltip="Redo" (click)="redo();">
           <mat-icon>redo</mat-icon>
         </button>
-        @if(this.a&&this.b){
-          <button matFab class="dbuttons" matTooltip="Confirm" (click)="confirm();">
-            <mat-icon>check</mat-icon>
-          </button>
-        }
+<!--        @if(this.a&&this.b){-->
+<!--          <button matFab class="dbuttons" matTooltip="Confirm" (click)="confirm();">-->
+<!--            <mat-icon>check</mat-icon>-->
+<!--          </button>-->
+<!--        }-->
       </div>
     </div>
   </div>
