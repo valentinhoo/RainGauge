@@ -8,14 +8,15 @@
 }
 .controlbuttons {
   position: absolute;
-  bottom:10px;
-  right: 20px;
+  top: 50%;              /* push it halfway down */
+  right: 20px;           /* keep it pinned to the right */
+  transform: translateY(-50%); /* pull it back up by half its own height */
   z-index: 50;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width:50px;
-  height:auto;
+  width: 50px;
+  height: auto;
 }
 .buttons
 {
@@ -63,7 +64,7 @@
   display: flex;
   flex-direction: row;
   gap: 10px;
-  width: 500px;
+  width: 80vw;
 
 }
 

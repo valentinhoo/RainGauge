@@ -10,7 +10,7 @@
 </mat-toolbar>
 
 <div class="maindiv">
-  <mat-grid-list cols="4" rowHeight="3:1" gutterSize="20px">
+  <mat-grid-list [cols]="this.c()" [rowHeight]="this.r()" gutterSize="20px">
 
     <!-- Harvest Potential -->
     <mat-grid-tile>
@@ -165,7 +165,7 @@
     </mat-grid-tile>
 
     <!-- Monthly Chart -->
-    <mat-grid-tile colspan="3" rowspan="2.5">
+    <mat-grid-tile colspan="2" rowspan="2.5">
       <div class="container">
         <div class="yearlyProj">
           <div class="label">Monthly</div>
@@ -175,7 +175,7 @@
     </mat-grid-tile>
 
     <!-- Leader board -->
-    <mat-grid-tile colspan="1" rowspan="2.5">
+    <mat-grid-tile colspan="2" rowspan="2.5">
       <div class="container">
         <button matIconButton class="goButton">
           <mat-icon style="background-color: transparent">call_made</mat-icon>

@@ -15,6 +15,7 @@ import { LineString, Polygon } from 'ol/geom';
 import { getLength } from 'ol/sphere';
 import VectorLayer from 'ol/layer/Vector';
 import { Feature } from 'ol';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -114,6 +115,8 @@ export class OverviewDisplay implements AfterViewInit {
   groundwater = signal<GroundwaterInfo | null>(null);
   rainCost=signal<number|null>(null);
   rainL=signal<number | null>(null);
+  c=signal<number  >(4);
+  r=signal<string >('3:1');
   bool:boolean = false;
   rain!:RainwaterComponentCost[];
   @ViewChild('arcontainer') div!: ElementRef;
@@ -142,10 +145,32 @@ export class OverviewDisplay implements AfterViewInit {
     public compute: Compute,
     private groundwaterService: GroundwaterAquiferService,
     private renderer: Renderer2,
-    private http: HttpClient
+    private http: HttpClient,private breakpointObserver: BreakpointObserver
   ) {
     // Initialize WeatherService with HttpClient
     this.weatherService = new WeatherService(this.http);
+    this.breakpointObserver.observe([
+      Breakpoints.HandsetPortrait,
+      Breakpoints.HandsetLandscape,
+      Breakpoints.Tablet,
+      Breakpoints.Web
+    ]).subscribe(result => {
+      if (result.breakpoints[Breakpoints.HandsetPortrait]) {
+        this.c.set(2);
+        this.r.set('1.5:1');
+       } else if (
+        result.breakpoints[Breakpoints.HandsetLandscape] ||
+        result.breakpoints[Breakpoints.Tablet]
+      ) {
+        this.c.set(2);
+        this.r.set('1.5:1');
+
+      } else {
+        this.c.set(2);
+        this.r.set('1.5:1');
+
+      }
+    });
   }
 
   formatEnvNumber(value: number): string {

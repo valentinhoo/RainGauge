@@ -201,6 +201,7 @@ export class MapDisplay implements OnInit {
       console.log(this.freeSpaceArea,this.freeSpaceCords);
       this.b=true;
       this.c=false;
+      this.openDialog();
     })
     this.map.addLayer(vector);
     this.map.addInteraction(draw);
