@@ -273,7 +273,7 @@ export class OverviewDisplay implements AfterViewInit {
     this.arReco.set(e);
 
     const dim: SVGDimensions = { length: e.length, breadth: e.breadth, depth: e.depth, radius: e.radius, systemType: e.systemType };
-    const svgString = this.generateSVG(dim, this.div.nativeElement.clientWidth || 200, this.div.nativeElement.clientHeight || 200);
+    const svgString = this.generateSVG(dim, this.div.nativeElement.clientWidth || 400, this.div.nativeElement.clientHeight || 400);
     this.div.nativeElement.innerHTML = svgString;
 
     const { chartData, chartLabels } = this.compute.savingspie();
@@ -459,7 +459,7 @@ export class OverviewDisplay implements AfterViewInit {
     roofPerimeter: number,   // meters
     monthlyWaterL: number    // liters per month
   ): RainwaterComponentCost[] {
-
+    if(monthlyWaterL==0)monthlyWaterL=15000;
     const gutter = { description: 'UPVC rainwater gutter (220 mm height)', costPerM: 350 };
     const pipe = { description: '110 mm UPVC downpipe', costPerM: 180 };
     const filter = { description: 'Basic first-flush diverter', costPerUnit: 2000 };
@@ -503,8 +503,8 @@ export class OverviewDisplay implements AfterViewInit {
     const coords = geom.getCoordinates()[0];
 
     const svgNS = "http://www.w3.org/2000/svg";
-    const svgWidth = container.nativeElement.clientWidth || 400;
-    const svgHeight = container.nativeElement.clientHeight || 400;
+    const svgWidth = container.nativeElement.clientWidth || 200;
+    const svgHeight = container.nativeElement.clientHeight || 200;
     container.nativeElement.innerHTML = '';
 
     const xs = coords.map(c => c[0]);
@@ -562,6 +562,59 @@ export class OverviewDisplay implements AfterViewInit {
   }
 
   generateSVG(dim: SVGDimensions, containerWidth: number, containerHeight: number): string {
+  if(this.c()==2)
+  {
+    const padding = 1;
+    const width = containerWidth+20 ;
+    const height = containerHeight ;
+
+    const sideWidth = width / 2 - 10;
+    const topWidth = width / 2 - 10;
+
+    const maxLength = dim.length || dim.radius * 2 || 1;
+    const maxBreadth = dim.breadth || dim.radius * 2 || 1;
+    const maxDepth = dim.depth || 1;
+
+    const scaleSide = Math.min(sideWidth / maxLength, height / maxDepth);
+    const scaleTop = Math.min(topWidth / maxLength, height / maxBreadth);
+
+    let fillColor = 'rgba(58,152,225,0.86)';
+    if (dim.systemType.includes('Pit')) fillColor = 'rgba(58,152,225,0.86)';
+    else if (dim.systemType.includes('Shaft')) fillColor = 'rgba(58,152,225,0.86)';
+    else if (dim.systemType.includes('Barrel')) fillColor = 'rgba(58,152,225,0.86)';
+
+    const sideX = padding + (sideWidth - (dim.length || dim.radius * 2) * scaleSide) / 2;
+    const sideY = padding + 10;
+    const sideHeight = (dim.depth || 1) * scaleSide;
+    const sideRectWidth = (dim.length || dim.radius * 2) * scaleSide;
+
+    const sideView = `
+    <rect x="${sideX}" y="${sideY}" width="${sideRectWidth}" height="${sideHeight}" fill="${fillColor}" stroke="white" stroke-width="2"/>
+    <text x="${sideX + sideRectWidth / 2}" y="${sideY + sideHeight + 15}" font-size="12" text-anchor="middle" fill="white">Length: ${dim.length || dim.radius * 2} m</text>
+    <text x="${sideX - 10}" y="${sideY + sideHeight / 2}" font-size="12" fill="white" transform="rotate(-90, ${sideX - 10}, ${sideY + sideHeight / 2})">Depth: ${dim.depth || dim.radius * 2} m</text>
+    <text x="${sideX + sideRectWidth / 2}" y="${sideY + sideHeight + 35}" font-size="14" text-anchor="middle" fill="white">Side View</text>
+  `;
+
+    const topX = padding + sideWidth + 20;
+    const topY = padding + 10;
+    const topRectWidth = (dim.length || dim.radius * 2) * scaleTop;
+    const topRectHeight = (dim.breadth || dim.radius * 2) * scaleTop;
+
+    const topView = `
+    <rect x="${topX}" y="${topY}" width="${topRectWidth}" height="${topRectHeight}" fill="${fillColor}" stroke="white" stroke-width="2"/>
+    <text x="${topX + topRectWidth / 2}" y="${topY + topRectHeight + 15}" font-size="12" text-anchor="middle" fill="white">Length: ${dim.length || dim.radius * 2} m</text>
+    <text x="${topX + topRectWidth + 10}" y="${topY + topRectHeight / 2}" font-size="12" fill="white" text-anchor="start">Breadth: ${dim.breadth || dim.radius * 2} m</text>
+    <text x="${topX + topRectWidth / 2}" y="${topY + topRectHeight + 35}" font-size="14" text-anchor="middle" fill="white">Top View</text>
+  `;
+
+    return `
+    <svg width="${containerWidth+140}" height="${containerHeight}" viewBox="0 0 ${containerWidth} ${containerHeight}" xmlns="http://www.w3.org/2000/svg" style="background: transparent;">
+      ${sideView}
+      ${topView}
+    </svg>
+  `;
+  }
+  else{
     const padding = 40;
     const width = containerWidth - 3 * padding;
     const height = containerHeight - 3 * padding;
@@ -611,6 +664,7 @@ export class OverviewDisplay implements AfterViewInit {
       ${topView}
     </svg>
   `;
+  }
   }
 
   rainopen()
