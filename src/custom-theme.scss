@@ -8,6 +8,11 @@
 
 
 :root {
+  @include mat.dialog-overrides((
+    container-max-width:60vw,
+    container-min-width:40vw,
+    content-padding:20px
+  ));
   @include mat.toolbar-overrides((
     container-text-color: white,
   ));

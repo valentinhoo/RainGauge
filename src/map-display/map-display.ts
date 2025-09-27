@@ -13,6 +13,7 @@ import {Polygon} from 'ol/geom';
 import {Coordinate} from 'ol/coordinate';
 import {getArea} from 'ol/sphere';
 
+
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -29,6 +30,7 @@ import {RainfallFetchService} from '../services/rainfall-fetch-service';
 import {Router} from '@angular/router';
 import {SharedFiles} from '../services/shared-files';
 import {Compute} from '../services/compute';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 export interface DialogData {
   Rarea: any;
@@ -42,7 +44,8 @@ export interface DialogData {
   selector: 'app-map-display',
   imports: [
     MatFabButton,
-    MatIcon
+    MatIcon,
+    MatTooltipModule
   ],
   templateUrl: './map-display.html',
   styleUrl: './map-display.css'
@@ -197,6 +200,7 @@ export class MapDisplay implements OnInit {
       this.freeSpaceCords=geo.getFirstCoordinate();
       console.log(this.freeSpaceArea,this.freeSpaceCords);
       this.b=true;
+      this.c=false;
     })
     this.map.addLayer(vector);
     this.map.addInteraction(draw);

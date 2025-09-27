@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Renderer2, signal, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, Renderer2, signal, ViewChild} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,6 +15,27 @@ import { LineString, Polygon } from 'ol/geom';
 import { getLength } from 'ol/sphere';
 import VectorLayer from 'ol/layer/Vector';
 import { Feature } from 'ol';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogActions, MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from '@angular/material/dialog';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable
+} from '@angular/material/table';
+import {CdkTableDataSourceInput} from '@angular/cdk/table';
+import {NgForOf} from '@angular/common';
+import {MatDivider} from '@angular/material/divider';
+import {MatList, MatListItem} from '@angular/material/list';
 
 export interface SVGDimensions {
   length: number;   // meters
@@ -30,7 +51,11 @@ export interface RainwaterComponentCost {
   quantity: number;      // meters or units
   cost: number;          // INR
 }
-
+export interface DialogData {
+ rain:RainwaterComponentCost;
+ ar:RechargeRecommendation;
+ bool:boolean;
+}
 // WeatherService to call Weatherstack API
 export class WeatherService {
   private apiKey = 'ddd6d38a14fc1a419502c1dbb41c9d6b';
@@ -88,9 +113,21 @@ export class OverviewDisplay implements AfterViewInit {
   arReco = signal<RechargeRecommendation | null>(null);
   groundwater = signal<GroundwaterInfo | null>(null);
   rainCost=signal<number|null>(null);
+  bool:boolean = false;
+  rain!:RainwaterComponentCost[];
   @ViewChild('arcontainer') div!: ElementRef;
   @ViewChild('rtr') rdiv!: ElementRef;
+  readonly dialog = inject(MatDialog);
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      data: {rain:this.rain,ar:this.arReco(),bool:this.bool},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
   env = signal<{
     WaterSaved: any,
     GroundwaterSaved: any,
@@ -204,8 +241,8 @@ export class OverviewDisplay implements AfterViewInit {
     this.env.set(this.compute.calcEnvImpactIndia());
     console.log(this.compute.getArSys());
     const e = this.compute.getArSys();
-    this.ROI.set(Number(((this.savings()! / e.estimatedCostINR) * 100).toFixed(2)));
-    this.PaybackPeriod.set(Math.floor(e.estimatedCostINR / this.savings()!));
+    // this.ROI.set(Number(((this.savings()! / e.estimatedCostINR) * 100).toFixed(2)));
+    // this.PaybackPeriod.set(Math.floor(e.estimatedCostINR / this.savings()!));
     this.arReco.set(e);
 
     const dim: SVGDimensions = { length: e.length, breadth: e.breadth, depth: e.depth, radius: e.radius, systemType: e.systemType };
@@ -343,6 +380,7 @@ export class OverviewDisplay implements AfterViewInit {
     const t=this.drawPolygonInContainer(cords!,this.rdiv);
     const rain=this.estimateRainwaterSystem(t!,this.compute.usage);
     console.log(rain)
+    this.rain=rain;
     this.rainCost.set(rain[4].cost);
     const r = (this.savings()!/rain[4].cost)*100;
     this.ROI.set(Number(r.toFixed(2)));
@@ -544,5 +582,47 @@ export class OverviewDisplay implements AfterViewInit {
       ${topView}
     </svg>
   `;
+  }
+
+  rainopen()
+  {
+    this.bool=true;
+    this.openDialog();
+  }
+
+  Aropen()
+  {
+    this.bool=false;
+    this.openDialog();
+  }
+}
+
+
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'dialog.html',
+  imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatButton,
+    MatDivider,
+    MatList,
+    MatListItem,
+
+  ],
+})
+export class DialogOverviewExampleDialog {
+  readonly dialogRef = inject(MatDialogRef<DialogOverviewExampleDialog>);
+  readonly data = inject<DialogData>(MAT_DIALOG_DATA);
+  rain:RainwaterComponentCost[];
+  constructor() {
+this.rain= this.data.rain as unknown as RainwaterComponentCost[];
+  }
+
+
+   onNoClick(): void {
+    this.dialogRef.close();
   }
 }

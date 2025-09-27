@@ -69,7 +69,7 @@
     <!-- rtrwh button -->
     <mat-grid-tile colspan="1" rowspan="2.5">
       <div class="container">
-        <button matIconButton class="goButton">
+        <button matIconButton (click)="rainopen()" class="goButton">
           <mat-icon style="background-color: transparent">call_made</mat-icon>
         </button>
         <div class="aryearlyProj">
@@ -86,7 +86,7 @@
     <!-- ar button -->
     <mat-grid-tile colspan="1" rowspan="2.5">
       <div class="arcontainer">
-        <button matIconButton class="goButton">
+        <button matIconButton (click)="Aropen()" class="goButton">
           <mat-icon style="background-color: transparent">call_made</mat-icon>
         </button>
         <div class="aryearlyProj">

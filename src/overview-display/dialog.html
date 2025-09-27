@@ -1,0 +1,73 @@
+@if(this.data.bool)
+{
+  <h2 mat-dialog-title>Rain Water Harvesting Cost</h2>
+}
+@else{
+  <h2 mat-dialog-title>Artificial Ground Replenishment</h2>
+
+}
+<mat-dialog-content>
+@if(this.data.bool)
+{
+   <table>
+     <tr>
+       <th>Name</th>
+       <th>Description</th>
+       <th>Quantity</th>
+       <th>Cost</th>
+     </tr>
+     <tr>
+       <td>{{ rain[0].name }}</td>
+       <td>{{rain[0].description}}</td>
+       <td>{{rain[0].quantity}}</td>
+       <td>{{ rain[0].cost }}</td>
+     </tr>
+     <tr>
+       <td>{{ rain[1].name }}</td>
+       <td>{{rain[1].description}}</td>
+       <td>{{rain[1].quantity}}</td>
+       <td>{{ rain[1].cost }}</td>
+     </tr>
+     <tr>
+       <td>{{ rain[2].name }}</td>
+       <td>{{rain[2].description}}</td>
+       <td>{{rain[2].quantity}}</td>
+       <td>{{ rain[2].cost }}</td>
+     </tr>
+     <tr>
+       <td>{{ rain[3].name }}</td>
+       <td>{{rain[3].description}}</td>
+       <td>{{rain[3].quantity}}</td>
+       <td>{{ rain[3].cost }}</td>
+     </tr>
+     <mat-divider></mat-divider>
+     <tr>
+       <td>{{ rain[4].name }}</td>
+       <td>{{rain[4].description}}</td>
+       <td>{{rain[4].quantity}}</td>
+       <td>{{ rain[4].cost }}</td>
+     </tr>
+   </table>
+}
+  @else{
+    <mat-list role="list">
+      <mat-list-item role="listitem">Dimensions:  {{this.data.ar.dimensionsPerUnit}}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item role="listitem">Filter Type:  {{this.data.ar.filterType}}</mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item role="listitem">Cost:  {{this.data.ar.estimatedCostINR}}</mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item role="listitem">Materials:  {{data.ar.materials}}
+
+
+      </mat-list-item>
+    </mat-list>
+
+  }
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton (click)="onNoClick() ">Ok</button>
+
+</mat-dialog-actions>

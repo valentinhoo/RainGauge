@@ -124,7 +124,7 @@ export class Compute {
     for (let montlyKey in this.montly) {
       m.push(this.montly[montlyKey]);
     }
-    return this.ar.getRecommendation(this.roofArea, m, this.freeSpaceArea);
+    return this.ar.getRecommendation(this.roofArea, m, this.freeSpaceArea||300);
   }
 
   savingspie()
