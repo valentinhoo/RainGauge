@@ -10,7 +10,7 @@
 :root {
   @include mat.dialog-overrides((
     container-max-width:80vw,
-    container-min-width:20vw,
+    container-min-width:80vw,
     content-padding:20px
   ));
   @include mat.toolbar-overrides((
