@@ -96,8 +96,7 @@ export class WeatherService {
   selector: 'app-overview-display',
   imports: [
     MatToolbarRow,
-    MatButton,
-    MatToolbar,
+     MatToolbar,
     MatGridList,
     MatGridTile,
     MatIconButton,

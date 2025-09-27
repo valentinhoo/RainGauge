@@ -80,7 +80,7 @@ export class MapDisplay implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.redoAll()
+        this.redo()
       }
       else return;
     });
@@ -228,13 +228,7 @@ export class MapDisplay implements OnInit {
   {
     this.openDialog();
   }
-  redoAll()
-  {
-    this.map.removeLayer(this.roofLayer);
-    this.map.removeLayer(this.freeSpaceLayer);
-    this.dRoof=true;
-    this.startdrawFreeSpace();
-  }
+
 
 }
 
