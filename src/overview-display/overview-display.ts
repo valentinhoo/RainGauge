@@ -113,6 +113,7 @@ export class OverviewDisplay implements AfterViewInit {
   arReco = signal<RechargeRecommendation | null>(null);
   groundwater = signal<GroundwaterInfo | null>(null);
   rainCost=signal<number|null>(null);
+  rainL=signal<number | null>(null);
   bool:boolean = false;
   rain!:RainwaterComponentCost[];
   @ViewChild('arcontainer') div!: ElementRef;
@@ -385,6 +386,7 @@ export class OverviewDisplay implements AfterViewInit {
     const r = (this.savings()!/rain[4].cost)*100;
     this.ROI.set(Number(r.toFixed(2)));
     this.PaybackPeriod.set(Math.floor(rain[4].cost / this.savings()!));
+    this.rainL.set(rain[5].cost);
 
     // Load Chatling chatbot script dynamically only for this component
     this.loadChatlingChatbot();
@@ -462,7 +464,8 @@ export class OverviewDisplay implements AfterViewInit {
       { name: 'Downpipe', description: pipe.description, quantity: pipeQty, cost: pipeCost },
       { name: 'First-flush filter', description: filter.description, quantity: filterQty, cost: filterCost },
       { name: 'Storage Tank', description: `${tank.description} (~${tankCapacityL} L total)`, quantity: tankQtyTotal, cost: tankCost },
-      { name: 'Total', description: '—', quantity: 0, cost: totalCost }
+      { name: 'Total', description: '—', quantity: 0, cost: totalCost },
+      { name: 'x', description: '—', quantity: 0, cost: tankCapacityL }
     ];
   }
 
