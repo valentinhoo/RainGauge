@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, Renderer2, signal, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, inject, Renderer2, signal, ViewChild} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -123,6 +123,27 @@ export class OverviewDisplay implements AfterViewInit {
   @ViewChild('rtr') rdiv!: ElementRef;
   readonly dialog = inject(MatDialog);
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: UIEvent) {
+    const width = (event.target as Window).innerWidth;
+    this.updateGrid(width);
+  }
+
+  private updateGrid(width: number) {
+    if (width < 600) {
+      // phone portrait
+      this.c.set(2);
+      this.r.set('1.5:1');
+    } else if (width >= 600 && width < 1024) {
+      // tablet or phone landscape
+      this.c.set(2);
+      this.r.set('1.5:1');
+    } else {
+      // desktop
+      this.c.set(4);
+      this.r.set('3:1');
+    }
+  }
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       data: {rain:this.rain,ar:this.arReco(),bool:this.bool},
@@ -145,32 +166,11 @@ export class OverviewDisplay implements AfterViewInit {
     public compute: Compute,
     private groundwaterService: GroundwaterAquiferService,
     private renderer: Renderer2,
-    private http: HttpClient,private breakpointObserver: BreakpointObserver
+    private http: HttpClient
   ) {
     // Initialize WeatherService with HttpClient
     this.weatherService = new WeatherService(this.http);
-    this.breakpointObserver.observe([
-      Breakpoints.HandsetPortrait,
-      Breakpoints.HandsetLandscape,
-      Breakpoints.Tablet,
-      Breakpoints.Web
-    ]).subscribe(result => {
-      if (result.breakpoints[Breakpoints.HandsetPortrait]) {
-        this.c.set(2);
-        this.r.set('1.5:1');
-       } else if (
-        result.breakpoints[Breakpoints.HandsetLandscape] ||
-        result.breakpoints[Breakpoints.Tablet]
-      ) {
-        this.c.set(2);
-        this.r.set('1.5:1');
 
-      } else {
-        this.c.set(2);
-        this.r.set('1.5:1');
-
-      }
-    });
   }
 
   formatEnvNumber(value: number): string {
@@ -191,6 +191,7 @@ export class OverviewDisplay implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.updateGrid(window.innerWidth); // set initial values
     this.yeary.set(this.compute.calcYearly());
     this.compute.computeYearlySavings().subscribe(savings => {
       console.log('Yearly savings (INR):', savings);

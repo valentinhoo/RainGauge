@@ -148,6 +148,7 @@ export class MapDisplay implements OnInit {
 
   startdrawRoof()
   {
+    alert("Single click to put down point, Double click to close polygon")
     this.text.set("Draw Polygon around your roof");
     const Source = new VectorSource();
     const vector = new VectorLayer(
@@ -177,6 +178,8 @@ export class MapDisplay implements OnInit {
   }
   startdrawFreeSpace()
   {
+    alert("Please Draw Polygon Around Free Space");
+
     this.c=true;
     this.text.set("Draw Polygon around Free Space available");
     const Source = new VectorSource();
