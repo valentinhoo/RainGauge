@@ -56,7 +56,7 @@ mat-toolbar-row {
 
 .aqitext {
   box-shadow: 0 2px 6px rgba(58, 58, 58, 0.73);
-
+ width :30%;
   flex: 0 0 200px;
   height: 80%;
   display: flex;
@@ -64,13 +64,13 @@ mat-toolbar-row {
   justify-content: center;
   font-size: 14px;
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   margin-right: 20px;
   border-radius: 20px;
   position: absolute;
   background-color: #252525;
   right: 0;
-  padding:10px
+  padding:10px;
 
 }
 
@@ -219,6 +219,7 @@ mat-toolbar-row {
 }
 .aryearlyProj
 {
+  margin-top: 20px;
   flex: 0 0 auto;
   width: 100%;
   background-color: transparent;
@@ -311,12 +312,18 @@ canvas {
 
 .env-tile .label {
   background-color: transparent;
-  font-size: 17px;
+  font-size: clamp(6px, 4vw, 17px);
   color: #555;
   margin-bottom: 6px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+
+  /* ✅ allow wrapping */
+  white-space: normal;
   overflow: hidden;
+
+  /* ✅ limit to 2 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;   /* number of lines */
+  -webkit-box-orient: vertical;
 }
 
 .env-tile .value {
