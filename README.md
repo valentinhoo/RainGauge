@@ -1,59 +1,45 @@
-# FrontEnd
+🌧️ RainGauge
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+RainGauge is a smart platform that helps users estimate, track, and optimize rainwater harvesting and groundwater recharge directly from their rooftops. It combines mapping, analytics, IoT, and AI to make sustainable water management simple and accessible.
 
-## Development server
+✨ Features
 
-To start a local development server, run:
+Interactive Roof Mapping
+Many people don’t know their exact roof area. With RainGauge, you can draw your roof boundary on a map, and the system automatically calculates the area and potential rainwater catchment.
 
-```bash
-ng serve
-```
+Rainfall Projection
+Uses local weather data (historical + forecast) to estimate how much water your roof can harvest.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+ROI & Savings Calculator
+Get detailed insights into installation cost, yearly savings, payback period, and long-term return on investment.
 
-## Code scaffolding
+Smart Recommendations
+Recommends the most suitable rainwater harvesting system and groundwater recharge option for your needs.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+System Costing
+Transparent breakdown of pipes, filters, tanks, and installation costs.
 
-```bash
-ng generate component component-name
-```
+AI Chatbot
+Learn about rainwater harvesting and groundwater replenishment by simply asking questions.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+IoT Integration
+Low-cost custom IoT sensors monitor rainfall, tank levels, and water usage in real time.
 
-```bash
-ng generate --help
-```
+Environmental Impact Dashboard
+Track water saved, groundwater replenished, energy conserved, and CO₂ emissions avoided.
 
-## Building
+Forecast-Linked Insights
+Integrated 16-day rainfall forecast to predict upcoming harvesting opportunities.
 
-To build the project run:
+Community Leaderboard
+Compare your water savings and impact with others — making sustainability social and fun.
+ 
 
-```bash
-ng build
-```
+🌱 Why RainGauge?
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Water scarcity is one of the biggest global challenges. RainGauge empowers homeowners, communities, and organizations to take control of their water resources by making rainwater harvesting and recharge planning easy, affordable, and data-driven.
 
-## Running unit tests
+<img width="1915" height="901" alt="image" src="https://github.com/user-attachments/assets/0ae7a176-e4a9-4d64-8dd5-64252e4e56ce" />
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+<img width="1901" height="903" alt="image" src="https://github.com/user-attachments/assets/dd628dcd-9e98-4ba5-be0d-89259ad1b2d2" />
