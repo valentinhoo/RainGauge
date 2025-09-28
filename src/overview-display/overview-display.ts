@@ -565,7 +565,7 @@ export class OverviewDisplay implements AfterViewInit {
   if(this.c()==2)
   {
     const padding = 1;
-    const width = containerWidth+20 ;
+    const width = containerWidth ;
     const height = containerHeight ;
 
     const sideWidth = width / 2 - 10;
@@ -590,7 +590,7 @@ export class OverviewDisplay implements AfterViewInit {
 
     const sideView = `
     <rect x="${sideX}" y="${sideY}" width="${sideRectWidth}" height="${sideHeight}" fill="${fillColor}" stroke="white" stroke-width="2"/>
-    <text x="${sideX + sideRectWidth / 2}" y="${sideY + sideHeight + 15}" font-size="12" text-anchor="middle" fill="white">Length: ${dim.length || dim.radius * 2} m</text>
+    <text x="${sideX + sideRectWidth / 2}" y="${sideY + sideHeight + 15}" font-size="12" text-anchor="middle" fill="white">L: ${dim.length || dim.radius * 2} m</text>
     <text x="${sideX - 10}" y="${sideY + sideHeight / 2}" font-size="12" fill="white" transform="rotate(-90, ${sideX - 10}, ${sideY + sideHeight / 2})">Depth: ${dim.depth || dim.radius * 2} m</text>
     <text x="${sideX + sideRectWidth / 2}" y="${sideY + sideHeight + 35}" font-size="14" text-anchor="middle" fill="white">Side View</text>
   `;
@@ -602,13 +602,13 @@ export class OverviewDisplay implements AfterViewInit {
 
     const topView = `
     <rect x="${topX}" y="${topY}" width="${topRectWidth}" height="${topRectHeight}" fill="${fillColor}" stroke="white" stroke-width="2"/>
-    <text x="${topX + topRectWidth / 2}" y="${topY + topRectHeight + 15}" font-size="12" text-anchor="middle" fill="white">Length: ${dim.length || dim.radius * 2} m</text>
-    <text x="${topX + topRectWidth + 10}" y="${topY + topRectHeight / 2}" font-size="12" fill="white" text-anchor="start">Breadth: ${dim.breadth || dim.radius * 2} m</text>
+    <text x="${topX + topRectWidth / 2}" y="${topY + topRectHeight + 15}" font-size="12" text-anchor="middle" fill="white">L: ${dim.length || dim.radius * 2} m</text>
+    <text x="${topX + topRectWidth + 10}" y="${topY + topRectHeight / 2}" font-size="12" fill="white" text-anchor="start">B: ${dim.breadth || dim.radius * 2} m</text>
     <text x="${topX + topRectWidth / 2}" y="${topY + topRectHeight + 35}" font-size="14" text-anchor="middle" fill="white">Top View</text>
   `;
 
     return `
-    <svg width="${containerWidth+140}" height="${containerHeight}" viewBox="0 0 ${containerWidth} ${containerHeight}" xmlns="http://www.w3.org/2000/svg" style="background: transparent;">
+    <svg width="${containerWidth+150}" height="${containerHeight}" viewBox="0 0 ${containerWidth} ${containerHeight}" xmlns="http://www.w3.org/2000/svg" style="background: transparent;">
       ${sideView}
       ${topView}
     </svg>
