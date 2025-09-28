@@ -18,6 +18,12 @@
   width: 50px;
   height: auto;
 }
+.bt
+{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 .buttons
 {
   background-color: #303030;
