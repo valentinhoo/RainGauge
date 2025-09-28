@@ -37,6 +37,7 @@ import {CdkTableDataSourceInput} from '@angular/cdk/table';
 import {NgForOf} from '@angular/common';
 import {MatDivider} from '@angular/material/divider';
 import {MatList, MatListItem} from '@angular/material/list';
+import {LangService} from '../services/lang-service';
 
 export interface SVGDimensions {
   length: number;   // meters
@@ -162,6 +163,7 @@ export class OverviewDisplay implements AfterViewInit {
   private weatherService: WeatherService;
 
   constructor(
+    public lang:LangService,
     public compute: Compute,
     private groundwaterService: GroundwaterAquiferService,
     private renderer: Renderer2,
@@ -464,19 +466,18 @@ export class OverviewDisplay implements AfterViewInit {
     const filter = { description: 'Basic first-flush diverter', costPerUnit: 2000 };
     const tank = { description: 'HDPE water storage tank', costPer1000L: 6000 };
 
-    // 1️⃣ Calculate target storage: 70% of monthly water
-    const targetStorageL = monthlyWaterL * 0.8;
+     const targetStorageL = monthlyWaterL * 0.8;
 
-    // 2️⃣ Estimate required tank capacity in liters
-    // We allow multiple tanks if needed, assume 1 tank per 1000 L
-    const tankCapacityL = Math.ceil(targetStorageL); // total liters required
-    const tankCost = (tankCapacityL / 1000) * tank.costPer1000L;
+     let tankCapacityL = Math.ceil(targetStorageL); // total liters required
+    const x = Math.round(tankCapacityL / 1000);
+    const tankCost = x* tank.costPer1000L;
+    tankCapacityL = x*1000;
 
     // 3️⃣ Quantities
     const gutterQty = roofPerimeter;               // meters
     const pipeQty = Math.ceil(roofPerimeter / 10); // 1 downpipe per 10 m of gutter
     const filterQty = 1;                           // usually 1 filter
-    const tankQtyTotal = tankCapacityL;            // liters
+    const tankQtyTotal = x;            // liters
 
     // 4️⃣ Costs
     const gutterCost = gutterQty * gutter.costPerM;
@@ -485,11 +486,11 @@ export class OverviewDisplay implements AfterViewInit {
     const totalCost = gutterCost + pipeCost + filterCost + tankCost;
 
     return [
-      { name: 'Gutter', description: gutter.description, quantity: gutterQty, cost: gutterCost },
-      { name: 'Downpipe', description: pipe.description, quantity: pipeQty, cost: pipeCost },
-      { name: 'First-flush filter', description: filter.description, quantity: filterQty, cost: filterCost },
-      { name: 'Storage Tank', description: `${tank.description} (~${tankCapacityL} L total)`, quantity: tankQtyTotal, cost: tankCost },
-      { name: 'Total', description: '—', quantity: 0, cost: totalCost },
+      { name: 'Gutter', description: gutter.description, quantity: gutterQty, cost: Number(gutterCost.toFixed(2)) },
+      { name: 'Downpipe', description: pipe.description, quantity: pipeQty, cost: Number(pipeCost.toFixed(2)) },
+      { name: 'First-flush filter', description: filter.description, quantity: filterQty, cost: Number(filterCost.toFixed(2)) },
+      { name: 'Storage Tank', description: `${tank.description} (~${tankCapacityL} L total)`, quantity: tankQtyTotal, cost: Number(tankCost.toFixed(2)) },
+      { name: 'Total', description: '—', quantity: 0, cost: Number(totalCost.toFixed(2)) },
       { name: 'x', description: '—', quantity: 0, cost: tankCapacityL }
     ];
   }

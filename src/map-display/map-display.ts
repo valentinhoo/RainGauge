@@ -23,14 +23,15 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import {MatInputModule} from '@angular/material/input';
+import {MatFormField, MatInputModule, MatLabel} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';
+import {MatOption, MatSelect, MatSelectModule} from '@angular/material/select';
 import {RainfallFetchService} from '../services/rainfall-fetch-service';
 import {Router} from '@angular/router';
 import {SharedFiles} from '../services/shared-files';
 import {Compute} from '../services/compute';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {LangService} from '../services/lang-service';
 
 export interface DialogData {
   Rarea: any;
@@ -45,7 +46,11 @@ export interface DialogData {
   imports: [
     MatFabButton,
     MatIcon,
-    MatTooltipModule
+    MatTooltipModule,
+    // MatLabel,
+    // MatFormField,
+    // MatSelect,
+    // MatOption
   ],
   templateUrl: './map-display.html',
   styleUrl: './map-display.css'
@@ -65,6 +70,7 @@ export class MapDisplay implements OnInit {
   a:boolean=false;
   b:boolean=false;
   c:boolean=false;
+  langlist:any;
 
   openDialog(): void {
     const dialogRef = this.dialog.open(dialogC, {
@@ -95,10 +101,10 @@ export class MapDisplay implements OnInit {
     const view = this.map.getView();
     view.setZoom(view.getZoom()! - 1);
   }
-  constructor() {}
+  constructor(public lang:LangService) {}
 
   ngOnInit() {
-    this.map = new Map({
+     this.map = new Map({
       controls: [],
       target: 'map',
       layers: [
