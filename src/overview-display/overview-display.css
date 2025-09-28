@@ -277,6 +277,18 @@ mat-toolbar-row {
   margin-top: 5px;
   color: #a6a6a6;
 }
+.arConts
+{
+  width: 100%;
+  justify-self: center;
+  margin: 30px 30px;
+  background: transparent;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  }
 
 
 canvas {
