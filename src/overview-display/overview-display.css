@@ -176,9 +176,14 @@ mat-toolbar-row {
 .arCont {
   width: 100%;
   justify-self: center;
-  margin: 10px 10px;
+  margin: 30px 30px;
   background: transparent;
   flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  padding: 40px;
 }
 .ar-container-flex {
   display: flex;
@@ -191,14 +196,7 @@ mat-toolbar-row {
   margin-bottom: 5px;
 }
 
-.arCont {
 
-  flex: 1 1 auto;
-  width: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 
 *

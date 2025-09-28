@@ -8,9 +8,9 @@
 }
 .controlbuttons {
   position: absolute;
-  top: 50%;              /* push it halfway down */
-  right: 20px;           /* keep it pinned to the right */
-  transform: translateY(-50%); /* pull it back up by half its own height */
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
   z-index: 50;
   display: flex;
   flex-direction: column;
