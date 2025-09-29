@@ -39,13 +39,17 @@ Compare your water savings and impact with others — making sustainability soci
 
 Water scarcity is one of the biggest global challenges. RainGauge empowers homeowners, communities, and organizations to take control of their water resources by making rainwater harvesting and recharge planning easy, affordable, and data-driven.
 
-Mobile:
-![WhatsApp Imag![WhatsApp Image 2025-09-29 at 10 48 47 AM](https://github.com/user-attachments/assets/37e058b1-0abb-4f71-88a5-52379d11a0a8)
-![WhatsApp Image 2025-09-29 at 10 48 46 AM](https://github.com/user-attachments/assets/de8de95a-11cf-40cf-8beb-4aeb674ad281)
-e 2025-09-29 at 10 48 47 AM (1)](https://github.com/user-attachments/assets/6d96f21e-9a56-4312-8d7b-eab25373640f)
-
 Desktop:
 <img width="1915" height="901" alt="image" src="https://github.com/user-attachments/assets/0ae7a176-e4a9-4d64-8dd5-64252e4e56ce" />
 
 
 <img width="1901" height="903" alt="image" src="https://github.com/user-attachments/assets/dd628dcd-9e98-4ba5-be0d-89259ad1b2d2" />
+
+Mobile:
+
+![WhatsApp Image 2025-09-29 at 10 48 47 AM](https://github.com/user-attachments/assets/7432d8e5-a668-42be-b83b-fe346ce7706a)
+
+![WhatsApp Image 2025-09-29 at 10 48 46 AM](https://github.com/user-attachments/assets/28707d94-1284-497a-873b-cbbe0b5aa0f4)
+
+![WhatsApp Image 2025-09-29 at 10 48 47 AM (1)](https://github.com/user-attachments/assets/c1679a7d-a8fe-4349-9a90-a869f8c43d06)
+
